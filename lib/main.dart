@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import 'bottom_nav/bottom_nav_screen.dart';
+import 'screens/onboard_screen.dart';
+
+void main() {
+  runApp(ProviderScope(child: MyApp()));
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      routerConfig: _router,
+    );
+  }
+
+  final GoRouter _router = GoRouter(routes: [
+    GoRoute(
+        path: "/bottomnav",
+        builder: (context, state) => const BottomNavScreen()),
+    GoRoute(path: "/", builder: (context, state) => const OnboardScreen()),
+  ]);
+}
