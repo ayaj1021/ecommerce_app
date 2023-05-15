@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_ecommerce_app/categories/chairs_categories.dart';
+import 'package:furniture_ecommerce_app/categories/tables_categories.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -14,18 +15,19 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
 
-  List<Widget> categories = [
-    // ChairCategory(),
-    const Text('chair category')
-  ];
   TabController? controller;
   @override
   void initState() {
-    // TODO: implement initState
     controller = TabController(length: 4, vsync: this);
     super.initState();
   }
 
+  List<String> productCategories = [
+    'Chairs',
+    'Cupboards',
+    'Tables',
+    'Lampholders',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
             40.height,
+            //Search bar
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: 50,
@@ -74,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen>
               style: AppStyles.headLine2,
             ),
             20.height,
+
             Container(
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -113,14 +117,19 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             Container(
-              height: 400,
+              height: 380,
               width: double.maxFinite,
-              child: TabBarView(controller: controller, children: const [
-                Text('hi'),
-                Text('there'),
-                Text('here'),
-                Text('you'),
+              child: TabBarView(controller: controller, children: [
+                ChairCategory(),
+                const Text('there'),
+                TableCategory(),
+                const Text('you'),
               ]),
+            ),
+
+            Text(
+              'Best Seller',
+              style: AppStyles.headLine2,
             )
           ],
         ),

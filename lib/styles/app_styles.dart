@@ -7,6 +7,8 @@ class AppStyles {
       TextStyle(fontSize: 34, color: primaryColor, fontWeight: FontWeight.bold);
         static TextStyle headLine2 =
       TextStyle(fontSize: 24, color: primaryColor, fontWeight: FontWeight.bold);
+       static TextStyle itemTitle =
+      TextStyle(fontSize: 20, color: primaryColor, fontWeight: FontWeight.bold);
   static TextStyle bodyText = TextStyle(fontSize: 14, color: primaryColor);
   static TextStyle buttonText =
       const TextStyle(fontSize: 14, color: Colors.white);

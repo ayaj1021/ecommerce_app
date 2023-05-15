@@ -13,7 +13,7 @@ class BottomNavScreen extends ConsumerWidget {
     int selectedIndex = ref.watch(indexValueProvider);
 
     List<Widget> pages = [
-      HomeScreen(),
+      const HomeScreen(),
       const Center(child: Text('Favorite')),
       const Center(child: Text('Scan')),
       const Center(child: Text('Cart')),

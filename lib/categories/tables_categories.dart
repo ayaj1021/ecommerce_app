@@ -3,10 +3,10 @@ import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class ChairCategory extends StatelessWidget {
-  ChairCategory({super.key});
+class TableCategory extends StatelessWidget {
+  TableCategory({super.key});
 
-  List<ItemPreview> itemsList = getChairItemDetails();
+  List<ItemPreview> itemsList = getTableItemDetails();
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ChairCategory extends StatelessWidget {
                               color: Colors.grey.shade300),
                           child: Image.asset(
                             itemsList[index].img,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                         ),
                         Padding(
