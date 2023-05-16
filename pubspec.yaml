@@ -40,6 +40,7 @@ dependencies:
   http: ^0.13.6
   shared_preferences: ^2.1.1
   nb_utils: ^5.0.8
+  image_picker: ^0.8.7+5
 
 dev_dependencies:
   flutter_test:

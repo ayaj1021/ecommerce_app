@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:furniture_ecommerce_app/providers/bottomnav_index_provider.dart';
+import 'package:furniture_ecommerce_app/screens/cart_screen.dart';
 import 'package:furniture_ecommerce_app/screens/home_screen.dart';
+import 'package:furniture_ecommerce_app/screens/profile_screen.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 
 class BottomNavScreen extends ConsumerWidget {
@@ -16,8 +18,8 @@ class BottomNavScreen extends ConsumerWidget {
       const HomeScreen(),
       const Center(child: Text('Favorite')),
       const Center(child: Text('Scan')),
-      const Center(child: Text('Cart')),
-      const Center(child: Text('Profile'))
+       const CartScreen(),
+      const ProfileScreen(),
     ];
 
     return Scaffold(
@@ -33,13 +35,21 @@ class BottomNavScreen extends ConsumerWidget {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.favorite), label: 'Favorite'),
+                activeIcon: Icon(Icons.favorite),
+                icon: Icon(Icons.favorite_outline),
+                label: 'Favorite'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner_outlined), label: 'Scan'),
+                activeIcon: Icon(Icons.qr_code_2_outlined),
+                icon: Icon(Icons.qr_code_scanner_outlined),
+                label: 'Scan'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+                activeIcon: Icon(Icons.shopping_cart),
+                icon: Icon(Icons.shopping_cart_outlined),
+                label: 'Cart'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline), label: 'Profile'),
+                activeIcon: Icon(Icons.person),
+                icon: Icon(Icons.person_outline),
+                label: 'Profile'),
           ]),
       body: pages[selectedIndex],
     );

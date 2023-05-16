@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_ecommerce_app/categories/chairs_categories.dart';
+import 'package:furniture_ecommerce_app/categories/cupboard_categories.dart';
 import 'package:furniture_ecommerce_app/categories/tables_categories.dart';
+import 'package:furniture_ecommerce_app/components/best_seller_component.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -78,50 +80,43 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             20.height,
 
-            Container(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TabBar(
-                    controller: controller,
-                    isScrollable: true,
-                    onTap: (index) {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    labelColor: AppStyles.primaryColor,
-                    indicatorColor: AppStyles.primaryColor,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: const [
-                      Tab(
-                        child: TabBarContainer(
-                          tabName: 'Chairs',
-                        ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TabBar(
+                  controller: controller,
+                  isScrollable: true,
+                  labelColor: AppStyles.primaryColor,
+                  indicatorColor: AppStyles.primaryColor,
+                  unselectedLabelColor: Colors.grey,
+                  tabs: const [
+                    Tab(
+                      child: TabBarContainer(
+                        tabName: 'Chairs',
                       ),
-                      Tab(
-                        child: TabBarContainer(
-                          tabName: 'Cupboards',
-                        ),
+                    ),
+                    Tab(
+                      child: TabBarContainer(
+                        tabName: 'Cupboards',
                       ),
-                      Tab(
-                        child: TabBarContainer(
-                          tabName: 'Tables',
-                        ),
+                    ),
+                    Tab(
+                      child: TabBarContainer(
+                        tabName: 'Tables',
                       ),
-                      Tab(
-                        child: TabBarContainer(
-                          tabName: 'Lampstands',
-                        ),
+                    ),
+                    Tab(
+                      child: TabBarContainer(
+                        tabName: 'Lampstands',
                       ),
-                    ]),
-              ),
+                    ),
+                  ]),
             ),
-            Container(
+            SizedBox(
               height: 380,
               width: double.maxFinite,
               child: TabBarView(controller: controller, children: [
                 ChairCategory(),
-                const Text('there'),
+                CupboardCategory(),
                 TableCategory(),
                 const Text('you'),
               ]),
@@ -130,6 +125,12 @@ class _HomeScreenState extends State<HomeScreen>
             Text(
               'Best Seller',
               style: AppStyles.headLine2,
+            ),
+
+            20.height,
+            SizedBox(
+              height: 140,
+              child: BestSellerComponent(),
             )
           ],
         ),

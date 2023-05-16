@@ -84,3 +84,40 @@ List<ItemPreview> getTableItemDetails() {
   );
   return list;
 }
+
+List<ItemPreview> getCupboardItemDetails() {
+  List<ItemPreview> list = [];
+  list.add(
+    ItemPreview(
+      img: 'images/cupboard_1.png',
+      itemName: 'Stand Cupboard',
+      itemType: 'Classic',
+      itemPrice: '\$90',
+    ),
+  );
+  list.add(
+    ItemPreview(
+      img: 'images/cupboard_2.png',
+      itemName: 'Mini Size Cupboard',
+      itemType: 'Fit',
+      itemPrice: '\$110',
+    ),
+  );
+  list.add(
+    ItemPreview(
+      img: 'images/cupboard_3.png',
+      itemName: 'Mat Cupboard',
+      itemType: 'Mattle',
+      itemPrice: '\$160',
+    ),
+  );
+  list.add(
+    ItemPreview(
+      img: 'images/cupboard_1.png',
+      itemName: 'Wooden Cupboard',
+      itemType: 'Wooden',
+      itemPrice: '\$120',
+    ),
+  );
+  return list;
+}
