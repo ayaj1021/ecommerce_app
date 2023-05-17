@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
+import 'package:furniture_ecommerce_app/providers/check_box_provider.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:furniture_ecommerce_app/widget/top_icons_button.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -8,9 +10,10 @@ import 'package:nb_utils/nb_utils.dart';
 class CartItemScreen extends ConsumerWidget {
   CartItemScreen({super.key});
 
+  List<ItemPreview> itemsList = getChairItemDetails();
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool isChecked = true;
+    final isChecked = ref.watch(checkBoxProvider);
     final cartItems = ref.watch(cartProvider);
     return Scaffold(
       body: Padding(
@@ -30,7 +33,11 @@ class CartItemScreen extends ConsumerWidget {
                   style: AppStyles.headLine2,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    if (isChecked == true) {
+                      cartItems.remove(itemsList);
+                    }
+                  },
                   child: const TopIconsButton(
                     iconData: Icons.delete_outline,
                   ),
@@ -60,7 +67,14 @@ class CartItemScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           // mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Checkbox(value: isChecked, onChanged: (newBool) {}),
+                            Checkbox(
+                                activeColor: AppStyles.primaryColor,
+                                value: isChecked,
+                                onChanged: (newBool) {
+                                  final onchanged = ref
+                                      .read(checkBoxProvider.notifier)
+                                      .state = newBool!;
+                                }),
                             Container(
                               height: 100,
                               width: 120,
@@ -97,6 +111,32 @@ class CartItemScreen extends ConsumerWidget {
             Text(
               'Recently View',
               style: AppStyles.headLine2,
+            ),
+            Expanded(
+              child: SizedBox(
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (_, index) {
+                      return Container(
+                          height: 130,
+                          width: 250,
+                          margin: const EdgeInsets.only(
+                              left: 5, right: 6, top: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Container(
+                            height: 120,
+                            width: 180,
+                            margin: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ));
+                    }),
+              ),
             )
           ],
         ),

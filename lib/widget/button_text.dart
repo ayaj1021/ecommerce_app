@@ -7,18 +7,23 @@ class Button extends StatelessWidget {
   final String buttonText;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-          color: AppStyles.primaryColor,
-          borderRadius: BorderRadius.circular(8)),
-      child: Center(
-        child: Text(
-          buttonText,
-          style: AppStyles.buttonText,
-        ),
-      ),
+    return Builder(
+      builder: (context) {
+        MediaQueryData mediaQuery = MediaQuery.of(context);
+        return Container(
+          height: mediaQuery.size.height * 0.07,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              color: AppStyles.primaryColor,
+              borderRadius: BorderRadius.circular(8)),
+          child: Center(
+            child: Text(
+              buttonText,
+              style: AppStyles.buttonText,
+            ),
+          ),
+        );
+      },
     );
   }
 }

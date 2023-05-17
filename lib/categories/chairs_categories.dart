@@ -4,7 +4,6 @@ import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
 
 class ChairCategory extends ConsumerWidget {
   ChairCategory({super.key});
@@ -13,7 +12,6 @@ class ChairCategory extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartItems = ref.watch(cartProvider);
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
