@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
+import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:provider/provider.dart';
 
-class ChairCategory extends StatelessWidget {
+class ChairCategory extends ConsumerWidget {
   ChairCategory({super.key});
 
   List<ItemPreview> itemsList = getChairItemDetails();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cartItems = ref.watch(cartProvider);
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
@@ -65,14 +69,33 @@ class ChairCategory extends StatelessWidget {
                                     style: AppStyles.itemTitle,
                                   ),
                                   const Spacer(),
-                                  Container(
-                                    padding: const EdgeInsets.all(3),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppStyles.primaryColor),
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () {
+                                      var item = CartItem(
+                                          img: itemsList[index].img,
+                                          itemName: itemsList[index].itemName,
+                                          itemPrice: itemsList[index].itemPrice,
+                                          itemType: itemsList[index].itemType,
+                                          qty: 1);
+                                      ref
+                                          .read(cartProvider.notifier)
+                                          .addItem(item);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              duration:
+                                                  Duration(milliseconds: 900),
+                                              content: Text(
+                                                  'Your Item has been added to cart')));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppStyles.primaryColor),
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   )
                                 ],

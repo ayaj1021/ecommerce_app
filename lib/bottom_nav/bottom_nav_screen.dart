@@ -18,7 +18,7 @@ class BottomNavScreen extends ConsumerWidget {
       const HomeScreen(),
       const Center(child: Text('Favorite')),
       const Center(child: Text('Scan')),
-       const CartScreen(),
+      CartItemScreen(),
       const ProfileScreen(),
     ];
 
