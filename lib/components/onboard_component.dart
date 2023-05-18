@@ -12,7 +12,6 @@ class OnboardingScreenComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenHeight = MediaQuery.of(context).size.height;
     return Builder(
       builder: (context) {
         MediaQueryData mediaQuery = MediaQuery.of(context);

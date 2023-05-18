@@ -1,3 +1,3 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final checkBoxProvider = StateProvider<bool>((ref) => true);
+final checkBoxProvider = StateProvider<bool>((ref) => false);

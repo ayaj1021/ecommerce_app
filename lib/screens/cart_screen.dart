@@ -4,6 +4,7 @@ import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/providers/check_box_provider.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
+import 'package:furniture_ecommerce_app/widget/button_text.dart';
 import 'package:furniture_ecommerce_app/widget/top_icons_button.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -17,9 +18,10 @@ class CartItemScreen extends ConsumerWidget {
     final cartItems = ref.watch(cartProvider);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 60,
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 60,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,8 +123,8 @@ class CartItemScreen extends ConsumerWidget {
                       return Container(
                           height: 130,
                           width: 250,
-                          margin: const EdgeInsets.only(
-                              left: 5, right: 6, top: 10),
+                          margin:
+                              const EdgeInsets.only(left: 5, right: 6, top: 10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8)),
@@ -137,6 +139,10 @@ class CartItemScreen extends ConsumerWidget {
                           ));
                     }),
               ),
+            ),
+            20.height,
+            const Button(
+              buttonText: 'Proceed to Checkout',
             )
           ],
         ),
