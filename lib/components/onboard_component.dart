@@ -48,7 +48,7 @@ class OnboardingScreenComponent extends StatelessWidget {
                   40.height,
                   GestureDetector(
                     onTap: () {
-                      context.go('/bottomnav');
+                      context.go('/authscreen');
                     },
                     child: const Button(
                       buttonText: 'Get Started',

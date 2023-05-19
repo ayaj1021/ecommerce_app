@@ -12,6 +12,7 @@ class ChairCategory extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cart = ref.watch(cartProvider);
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
@@ -69,15 +70,14 @@ class ChairCategory extends ConsumerWidget {
                                   const Spacer(),
                                   GestureDetector(
                                     onTap: () {
-                                      var item = CartItem(
-                                          img: itemsList[index].img,
-                                          itemName: itemsList[index].itemName,
-                                          itemPrice: itemsList[index].itemPrice,
-                                          itemType: itemsList[index].itemType,
-                                          qty: 1);
-                                      ref
-                                          .read(cartProvider.notifier)
-                                          .addItem(item);
+                                      var cart = ItemPreview(
+                                        img: itemsList[index].img,
+                                        itemName: itemsList[index].itemName,
+                                        itemPrice: itemsList[index].itemPrice,
+                                        itemType: itemsList[index].itemType,
+                                        //qty: 1
+                                      );
+                                      ref.read(cartProvider).add(cart);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
                                               duration:

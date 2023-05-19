@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'bottom_nav/bottom_nav_screen.dart';
+import 'screens/auth_screen/auth_screen.dart';
 import 'screens/onboard_screen.dart';
 import 'screens/profile_screen.dart';
 
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
           GoRoute(
               path: "bottomnav",
               builder: (context, state) => const BottomNavScreen()),
-              GoRoute(path: "profile", builder: (context, state) =>const ProfileScreen(),)
+              GoRoute(path: "profile", builder: (context, state) =>const ProfileScreen(),),
+              GoRoute(path: "authscreen", builder: (context, state) =>const AuthScreen()),
         ]),
   ]);
 }
