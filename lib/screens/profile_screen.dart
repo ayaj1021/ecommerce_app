@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:furniture_ecommerce_app/widget/profile_item_buttons.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -72,9 +73,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               iconData: Icons.privacy_tip_outlined,
               arrowIconData: Icons.arrow_forward_ios,
             ),
-            const ProfileItemButtons(
-              buttonName: 'Log Out',
-              iconData: Icons.logout_outlined,
+            GestureDetector(
+              onTap: () {
+                context.go('/authscreen');
+              },
+              child: const ProfileItemButtons(
+                buttonName: 'Log Out',
+                iconData: Icons.logout_outlined,
+              ),
             ),
           ],
         ),

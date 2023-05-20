@@ -3,9 +3,12 @@ import 'package:furniture_ecommerce_app/constants/constants.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:furniture_ecommerce_app/widget/password_form_field_widget.dart';
 import 'package:furniture_ecommerce_app/widget/text_form_field_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+  SignupScreen({super.key});
+  final TextEditingController textEditingController = TextEditingController();
+  final GlobalKey _formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +18,13 @@ class SignupScreen extends StatelessWidget {
         horizontal: MediaQuery.of(context).size.width * 0.13,
       ),
       child: Form(
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
             TextFormFieldWidget(
+              textEditingController: textEditingController,
               textColor: AppStyles.primaryColor,
               containerColor: AppStyles.primaryColor,
               fieldText: 'Enter Email',
@@ -52,7 +57,9 @@ class SignupScreen extends StatelessWidget {
             Column(
               children: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go('/loginscreen');
+                    },
                     child: RichText(
                       text: TextSpan(
                           text: 'Already have an account?',

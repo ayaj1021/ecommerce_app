@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_ecommerce_app/constants/constants.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
-  const TextFormFieldWidget({
-    super.key,
-    required this.fieldText,
-    required this.containerColor,
-    required this.textColor,
-  });
-  final String fieldText;
+  TextFormFieldWidget(
+      {super.key,
+      required this.fieldText,
+      required this.containerColor,
+      required this.textColor,
+      required this.textEditingController});
+  String fieldText;
   final Color containerColor;
   final Color textColor;
+
+  TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,20 @@ class TextFormFieldWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: containerColor)),
       child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ' Enter a valid mail';
+          }
+          if (!value.contains('@gmail.com')) {
+            return 'Please enter a valid email';
+          } else {
+            return null;
+          }
+        },
+        onSaved: (newValue) {
+          fieldText = newValue!;
+        },
         style: TextStyle(
           color: textColor,
         ),

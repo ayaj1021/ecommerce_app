@@ -69,7 +69,7 @@ class _AuthScreenState extends State<AuthScreen>
                   width: size.width * 0.88,
                   child: Container(
                     color: AppStyles.primaryColor,
-                    child: const LoginScreen(),
+                    child:  LoginScreen(),
                   ),
                 ),
 
@@ -79,8 +79,8 @@ class _AuthScreenState extends State<AuthScreen>
                     left: isShowSignUp ? size.width * 0.12 : size.width * 0.88,
                     height: size.height,
                     width: size.width * 0.88,
-                    child: const SignupScreen()),
-//login text animation
+                    child:  SignupScreen()),
+                //login text animation
                 AnimatedPositioned(
                   duration: defaultDuration,
                   top:
