@@ -12,9 +12,10 @@ class CartItemScreen extends ConsumerWidget {
   CartItemScreen({super.key});
 
   List<ItemPreview> itemsList = getChairItemDetails();
+  List<ItemPreview> removeList = [];
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isChecked = ref.watch(checkBoxProvider);
+    final isSelected = ref.watch(checkBoxProvider);
     final cartItems = ref.watch(cartProvider);
     return Scaffold(
       body: Padding(
@@ -36,9 +37,7 @@ class CartItemScreen extends ConsumerWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    if (isChecked == true) {
-                      cartItems.remove(itemsList);
-                    }
+                    ref.read(cartProvider.notifier).state.remove(itemsList);
                   },
                   child: const TopIconsButton(
                     iconData: Icons.delete_outline,
@@ -49,6 +48,7 @@ class CartItemScreen extends ConsumerWidget {
             Expanded(
               child: SizedBox(
                 child: ListView.builder(
+                    controller: ScrollController(),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: cartItems.length,
@@ -71,11 +71,27 @@ class CartItemScreen extends ConsumerWidget {
                           children: [
                             Checkbox(
                                 activeColor: AppStyles.primaryColor,
-                                value: isChecked,
+                                value: ref
+                                    .read(checkBoxProvider.notifier)
+                                    .state
+                                    .contains(index),
                                 onChanged: (newBool) {
-                                  final onchanged = ref
+                                  print(ref.watch(checkBoxProvider));
+                                  if (ref
                                       .read(checkBoxProvider.notifier)
-                                      .state = newBool!;
+                                      .state
+                                      .contains(index)) {
+                                    ref
+                                        .read(checkBoxProvider.notifier)
+                                        .state
+                                        .remove(index);
+                                  } else {
+                                    ref
+                                        .read(checkBoxProvider.notifier)
+                                        .state
+                                        .add(index);
+                                    print(ref.watch(checkBoxProvider));
+                                  }
                                 }),
                             Container(
                               height: 100,
@@ -114,32 +130,32 @@ class CartItemScreen extends ConsumerWidget {
               'Recently View',
               style: AppStyles.headLine2,
             ),
-            Expanded(
-              child: SizedBox(
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: (_, index) {
-                      return Container(
-                          height: 130,
-                          width: 250,
-                          margin:
-                              const EdgeInsets.only(left: 5, right: 6, top: 10),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Container(
-                            height: 120,
-                            width: 180,
-                            margin: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ));
-                    }),
-              ),
-            ),
+            // Expanded(
+            //   child: SizedBox(
+            //     child: ListView.builder(
+            //         scrollDirection: Axis.horizontal,
+            //         shrinkWrap: true,
+            //         itemBuilder: (_, index) {
+            //           return Container(
+            //               height: 130,
+            //               width: 250,
+            //               margin:
+            //                   const EdgeInsets.only(left: 5, right: 6, top: 10),
+            //               decoration: BoxDecoration(
+            //                   color: Colors.white,
+            //                   borderRadius: BorderRadius.circular(8)),
+            //               child: Container(
+            //                 height: 120,
+            //                 width: 180,
+            //                 margin: const EdgeInsets.all(10),
+            //                 decoration: BoxDecoration(
+            //                   color: Colors.grey.shade300,
+            //                   borderRadius: BorderRadius.circular(8),
+            //                 ),
+            //               ));
+            //         }),
+            //   ),
+            // ),
             20.height,
             const Button(
               buttonText: 'Proceed to Checkout',

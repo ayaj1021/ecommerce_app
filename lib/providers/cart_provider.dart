@@ -17,8 +17,8 @@ import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 //   });
 // }
 
-final cartProvider = StateNotifierProvider<CartNotifier, List<ItemPreview>>(
-    (ref) => CartNotifier());
+final cartProvider = StateProvider< List<ItemPreview>>(
+    (ref) => []);
 
 class CartNotifier extends StateNotifier<List<ItemPreview>> {
   CartNotifier() : super([]);
@@ -27,7 +27,7 @@ class CartNotifier extends StateNotifier<List<ItemPreview>> {
     state = [...state, item];
   }
 
-  
+  void removeItem(ItemPreview item) {
+    state = List.from(state);
+  }
 }
-
-

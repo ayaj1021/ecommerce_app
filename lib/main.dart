@@ -32,10 +32,19 @@ class MyApp extends StatelessWidget {
           GoRoute(
               path: "bottomnav",
               builder: (context, state) => const BottomNavScreen()),
-              GoRoute(path: "profile", builder: (context, state) =>const ProfileScreen(),),
-              GoRoute(path: "authscreen", builder: (context, state) =>const AuthScreen()),
-              GoRoute(path: "signupscreen", builder: (context, state) =>const AuthScreen()),
-              GoRoute(path: "loginscreen", builder: (context, state) =>const AuthScreen()),
+          GoRoute(
+            path: "profile",
+            builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+              path: "authscreen",
+              builder: (context, state) => const AuthScreen()),
+          GoRoute(
+              path: "signupscreen",
+              builder: (context, state) => const AuthScreen()),
+          GoRoute(
+              path: "loginscreen",
+              builder: (context, state) => const AuthScreen()),
         ]),
   ]);
 }

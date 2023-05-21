@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
+import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class CupboardCategory extends StatelessWidget {
+class CupboardCategory extends ConsumerWidget {
   CupboardCategory({super.key});
 
   List<ItemPreview> itemsList = getCupboardItemDetails();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
@@ -65,14 +67,32 @@ class CupboardCategory extends StatelessWidget {
                                     style: AppStyles.itemTitle,
                                   ),
                                   const Spacer(),
-                                  Container(
-                                    padding: const EdgeInsets.all(3),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppStyles.primaryColor),
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () {
+                                      var cart = ItemPreview(
+                                        img: itemsList[index].img,
+                                        itemName: itemsList[index].itemName,
+                                        itemPrice: itemsList[index].itemPrice,
+                                        itemType: itemsList[index].itemType,
+                                        //qty: 1
+                                      );
+                                      ref.read(cartProvider).add(cart);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              duration:
+                                                  Duration(milliseconds: 900),
+                                              content: Text(
+                                                  'Your Item has been added to cart')));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppStyles.primaryColor),
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   )
                                 ],

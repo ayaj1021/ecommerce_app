@@ -3,12 +3,15 @@ class ItemPreview {
   final String itemName;
   final String itemType;
   final String itemPrice;
+  
 
-  ItemPreview(
-      {required this.img,
-      required this.itemName,
-      required this.itemType,
-      required this.itemPrice});
+  ItemPreview({
+    required this.img,
+    required this.itemName,
+    required this.itemType,
+    required this.itemPrice,
+  
+  });
 }
 
 List<ItemPreview> getChairItemDetails() {
