@@ -108,8 +108,7 @@ class _ProfileTopContainerState extends State<ProfileTopContainer> {
 
       final imageTemprary = File(image.path);
       setState(() => this.image = imageTemprary);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+    } on PlatformException {
     }
   }
 

@@ -1,27 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
+import 'package:furniture_ecommerce_app/services/add_to_cart_service.dart';
 
-// class CartItem {
-//   final String img;
-//   final String itemName;
-//   final String itemType;
-//   final String itemPrice;
-//   final int qty;
+final getAddToCart = FutureProvider((ref) => addToCart());
 
-//   CartItem({
-//     required this.img,
-//     required this.itemName,
-//     required this.itemType,
-//     required this.itemPrice,
-//     required this.qty,
-//   });
-// }
 
-final cartProvider = StateProvider< List<ItemPreview>>(
-    (ref) => []);
+final cartProvider = StateProvider<List<ItemPreview>>((ref) => []);
 
 class CartNotifier extends StateNotifier<List<ItemPreview>> {
+  
   CartNotifier() : super([]);
+
+  
 
   void addItem(ItemPreview item) {
     state = [...state, item];

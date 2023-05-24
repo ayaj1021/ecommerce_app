@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/providers/check_box_provider.dart';
+import 'package:furniture_ecommerce_app/services/product_service.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:furniture_ecommerce_app/widget/button_text.dart';
 import 'package:furniture_ecommerce_app/widget/top_icons_button.dart';
@@ -11,11 +12,13 @@ import 'package:nb_utils/nb_utils.dart';
 class CartItemScreen extends ConsumerWidget {
   CartItemScreen({super.key});
 
-  List<ItemPreview> itemsList = getChairItemDetails();
+  // List<ItemPreview> itemsList = getChairItemDetails();
   List<ItemPreview> removeList = [];
+
+  final getAddToCart = FutureProvider((ref) => getItemData());
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isSelected = ref.watch(checkBoxProvider);
+    final addCart = ref.watch(getAddToCart);
     final cartItems = ref.watch(cartProvider);
     return Scaffold(
       body: Padding(
@@ -37,7 +40,7 @@ class CartItemScreen extends ConsumerWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    ref.read(cartProvider.notifier).state.remove(itemsList);
+                    //  ref.read(cartProvider.notifier).state.remove();
                   },
                   child: const TopIconsButton(
                     iconData: Icons.delete_outline,
@@ -54,74 +57,88 @@ class CartItemScreen extends ConsumerWidget {
                     itemCount: cartItems.length,
                     itemBuilder: (_, index) {
                       final items = cartItems[index];
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 5,
-                          vertical: 12,
-                        ),
-                        //  height: 130,
-                        margin: const EdgeInsets.all(5),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                                activeColor: AppStyles.primaryColor,
-                                value: ref
-                                    .read(checkBoxProvider.notifier)
-                                    .state
-                                    .contains(index),
-                                onChanged: (newBool) {
-                                  print(ref.watch(checkBoxProvider));
-                                  if (ref
-                                      .read(checkBoxProvider.notifier)
-                                      .state
-                                      .contains(index)) {
-                                    ref
-                                        .read(checkBoxProvider.notifier)
-                                        .state
-                                        .remove(index);
-                                  } else {
-                                    ref
-                                        .read(checkBoxProvider.notifier)
-                                        .state
-                                        .add(index);
-                                    print(ref.watch(checkBoxProvider));
-                                  }
-                                }),
-                            Container(
-                              height: 100,
-                              width: 120,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade300,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Image.asset(items.img),
+                      return addCart.when(data: (value) {
+                        return Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 12,
                             ),
-                            15.width,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            //  height: 130,
+                            margin: const EdgeInsets.all(5),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  items.itemName,
-                                  style: AppStyles.itemTitle,
+                                Checkbox(
+                                    activeColor: AppStyles.primaryColor,
+                                    value: ref
+                                        .read(checkBoxProvider.notifier)
+                                        .state
+                                        .contains(index),
+                                    onChanged: (newBool) {
+                                      print(ref.watch(checkBoxProvider));
+                                      if (ref
+                                          .read(checkBoxProvider.notifier)
+                                          .state
+                                          .contains(index)) {
+                                        ref
+                                            .read(checkBoxProvider.notifier)
+                                            .state
+                                            .remove(index);
+                                      } else {
+                                        ref
+                                            .read(checkBoxProvider.notifier)
+                                            .state
+                                            .add(index);
+                                        print(ref.watch(checkBoxProvider));
+                                      }
+                                    }),
+                                Container(
+                                  height: 100,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade300,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Image.network(
+                                    value.image,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                10.height,
-                                Text(items.itemType),
-                                28.height,
-                                Text(
-                                  items.itemPrice,
-                                  style: AppStyles.itemTitle,
-                                ),
+                                15.width,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      value.title,
+                                      style: AppStyles.itemTitle
+                                          .copyWith(fontSize: 2),
+                                    ),
+                                    10.height,
+                                    Text(value.category),
+                                    28.height,
+                                    Text(
+                                      value.price.toString(),
+                                      style: AppStyles.itemTitle,
+                                    ),
+                                  ],
+                                )
                               ],
-                            )
-                          ],
-                        ),
-                      );
+                            ),
+                          ),
+                        );
+                      }, error: (error, stackTrace) {
+                        return Text(error.toString());
+                      }, loading: () {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      });
                     }),
               ),
             ),

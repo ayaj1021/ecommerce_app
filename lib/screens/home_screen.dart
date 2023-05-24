@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/categories/chairs_categories.dart';
 import 'package:furniture_ecommerce_app/categories/cupboard_categories.dart';
 import 'package:furniture_ecommerce_app/categories/tables_categories.dart';
 import 'package:furniture_ecommerce_app/components/best_seller_component.dart';
+import 'package:furniture_ecommerce_app/services/category_service.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
+class _HomeScreenState extends ConsumerState<HomeScreen>
     with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
 
@@ -24,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
   }
 
+  final fetchCategoryProvider = FutureProvider((ref) {
+    return getCategories();
+  });
+
   List<String> productCategories = [
     'Chairs',
     'Cupboards',
@@ -32,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen>
   ];
   @override
   Widget build(BuildContext context) {
+    final category = ref.watch(fetchCategoryProvider);
     return Scaffold(
       backgroundColor: AppStyles.scaffoldBgColor,
       body: SingleChildScrollView(
@@ -48,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen>
             Row(
               children: [
                 Text(
-                  'Discover the Best \nFurniture',
+                  'Discover the Best \nProducts',
                   style: AppStyles.headLine2,
                 ),
                 const Spacer(),
@@ -128,10 +135,10 @@ class _HomeScreenState extends State<HomeScreen>
             ),
 
             20.height,
-            SizedBox(
-              height: 140,
-              child: BestSellerComponent(),
-            )
+            // SizedBox(
+            //   height: 140,
+            //   child: BestSellerComponent(),
+            // )
           ],
         ),
       )),
@@ -139,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 }
 
-class TabBarContainer extends StatelessWidget {
+class TabBarContainer extends ConsumerWidget {
   const TabBarContainer({
     super.key,
     required this.tabName,
@@ -151,7 +158,7 @@ class TabBarContainer extends StatelessWidget {
   final Color? textColor;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(

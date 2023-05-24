@@ -43,7 +43,7 @@ class TableCategory extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(8),
                               color: Colors.grey.shade300),
                           child: Image.asset(
-                            itemsList[index].img,
+                            itemsList[index].image,
                             fit: BoxFit.contain,
                           ),
                         ),
@@ -54,26 +54,26 @@ class TableCategory extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                itemsList[index].itemName,
+                                itemsList[index].title,
                                 style: AppStyles.itemTitle,
                               ),
                               10.height,
-                              Text(itemsList[index].itemType),
+                              Text(itemsList[index].category),
                               15.height,
                               Row(
                                 children: [
                                   Text(
-                                    itemsList[index].itemPrice,
+                                    itemsList[index].category.toString(),
                                     style: AppStyles.itemTitle,
                                   ),
                                   const Spacer(),
                                   GestureDetector(
                                     onTap: () {
                                       var cart = ItemPreview(
-                                        img: itemsList[index].img,
-                                        itemName: itemsList[index].itemName,
-                                        itemPrice: itemsList[index].itemPrice,
-                                        itemType: itemsList[index].itemType,
+                                        image: itemsList[index].image,
+                                        title: itemsList[index].title,
+                                        category: itemsList[index].category,
+                                        price: itemsList[index].price,
                                         //qty: 1
                                       );
                                       ref.read(cartProvider).add(cart);

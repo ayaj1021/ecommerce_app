@@ -1,88 +1,57 @@
 class ItemPreview {
-  final String img;
-  final String itemName;
-  final String itemType;
-  final String itemPrice;
-  
+  final String image;
+  final String title;
+  final String category;
+  final double price;
 
   ItemPreview({
-    required this.img,
-    required this.itemName,
-    required this.itemType,
-    required this.itemPrice,
-  
+    required this.image,
+    required this.title,
+    required this.category,
+    required this.price,
   });
+  static ItemPreview fromJson(Map<String, dynamic> data) {
+    return ItemPreview(
+        image: data['image'],
+        title: data['title'],
+        category: data['category'],
+        price: data['price']);
+  }
 }
 
-List<ItemPreview> getChairItemDetails() {
-  List<ItemPreview> list = [];
-  list.add(
-    ItemPreview(
-      img: 'images/chair_1.png',
-      itemName: 'Bar chair',
-      itemType: 'Armless chair',
-      itemPrice: '\$120',
-    ),
-  );
-  list.add(
-    ItemPreview(
-      img: 'images/chair_2.png',
-      itemName: 'Aged chair',
-      itemType: 'Curve chair',
-      itemPrice: '\$190',
-    ),
-  );
-  list.add(
-    ItemPreview(
-      img: 'images/chair_3.png',
-      itemName: 'Relax chair',
-      itemType: 'Half arm chair',
-      itemPrice: '\$120',
-    ),
-  );
-  list.add(
-    ItemPreview(
-      img: 'images/chair_4.png',
-      itemName: 'Circle chair',
-      itemType: 'Armless chair',
-      itemPrice: '\$170',
-    ),
-  );
-  return list;
-}
 
 List<ItemPreview> getTableItemDetails() {
   List<ItemPreview> list = [];
   list.add(
     ItemPreview(
-      img: 'images/table_1.png',
-      itemName: 'Spiral Table',
-      itemType: 'Classic',
-      itemPrice: '\$190',
+      image: 'images/table_1.png',
+      title: 'Spiral Table',
+      category: 'Classic',
+      price: 190,
     ),
   );
   list.add(
     ItemPreview(
-      img: 'images/table_2.png',
-      itemName: 'Bond Table',
-      itemType: 'set',
-      itemPrice: '\$110',
+      image: 'images/table_2.png',
+      title: 'Bond Table',
+      category: 'set',
+      price: 110,
     ),
   );
   list.add(
     ItemPreview(
-      img: 'images/table_3.png',
-      itemName: 'Mat Table',
-      itemType: 'Mattle',
-      itemPrice: '\$140',
+      image: 'images/table_3.png',
+      title: 'Mat Table',
+      category: 'Mattle',
+      price: 140,
     ),
   );
   list.add(
     ItemPreview(
-      img: 'images/table_4.png',
-      itemName: 'Center chair',
-      itemType: 'Wooden',
-      itemPrice: '\$190',
+      image: 'images/table_4.png',
+      title: 'Center chair',
+      category: 'Wooden',
+      price: 190,
     ),
   );
   return list;
@@ -92,34 +61,34 @@ List<ItemPreview> getCupboardItemDetails() {
   List<ItemPreview> list = [];
   list.add(
     ItemPreview(
-      img: 'images/cupboard_1.png',
-      itemName: 'Stand Cupboard',
-      itemType: 'Classic',
-      itemPrice: '\$90',
+      image: 'images/cupboard_1.png',
+      title: 'Stand Cupboard',
+      category: 'Classic',
+      price: 90,
     ),
   );
   list.add(
     ItemPreview(
-      img: 'images/cupboard_2.png',
-      itemName: 'Mini Size Cupboard',
-      itemType: 'Fit',
-      itemPrice: '\$110',
+      image: 'images/cupboard_2.png',
+      title: 'Mini Size Cupboard',
+      category: 'Fit',
+      price: 110,
     ),
   );
   list.add(
     ItemPreview(
-      img: 'images/cupboard_3.png',
-      itemName: 'Mat Cupboard',
-      itemType: 'Mattle',
-      itemPrice: '\$160',
+      image: 'images/cupboard_3.png',
+      title: 'Mat Cupboard',
+      category: 'Mattle',
+      price: 160,
     ),
   );
   list.add(
     ItemPreview(
-      img: 'images/cupboard_1.png',
-      itemName: 'Wooden Cupboard',
-      itemType: 'Wooden',
-      itemPrice: '\$120',
+      image: 'images/cupboard_1.png',
+      title: 'Wooden Cupboard',
+      category: 'Wooden',
+      price: 120,
     ),
   );
   return list;

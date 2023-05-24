@@ -23,7 +23,7 @@ class OnboardingScreenComponent extends StatelessWidget {
               height: mediaQuery.size.height * 0.6,
               // height: 500,
               child: Image.asset(
-                'images/onboard_image.jpg',
+                'images/shopping.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -42,13 +42,13 @@ class OnboardingScreenComponent extends StatelessWidget {
                   ),
                   20.height,
                   Text(
-                    'Browse through all categories and the best furniture for your dream house.',
+                    'Browse through all your items at a good and affordable price with swift delivery.',
                     style: AppStyles.bodyText,
                   ),
                   40.height,
                   GestureDetector(
                     onTap: () {
-                      context.go('/authscreen');
+                      context.go('/bottomnav');
                     },
                     child: const Button(
                       buttonText: 'Get Started',
