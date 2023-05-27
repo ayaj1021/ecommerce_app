@@ -4,17 +4,17 @@ import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
-  TextFormFieldWidget(
+   TextFormFieldWidget(
       {super.key,
       required this.fieldText,
       required this.containerColor,
       required this.textColor,
       required this.textEditingController});
-  String fieldText;
+ late final String fieldText;
   final Color containerColor;
   final Color textColor;
 
-  TextEditingController textEditingController;
+ final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {

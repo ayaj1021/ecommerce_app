@@ -4,6 +4,7 @@ import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/services/product_service.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class ChairCategory extends ConsumerWidget {
@@ -11,7 +12,7 @@ class ChairCategory extends ConsumerWidget {
 
   // List<ItemPreview> itemsList = getChairItemDetails();
 
-  var fetchProductsProvider = FutureProvider((ref) {
+  final fetchProductsProvider = FutureProvider((ref) {
     return getItemData();
   });
 
@@ -91,7 +92,6 @@ class ChairCategory extends ConsumerWidget {
                                                       milliseconds: 900),
                                                   content: Text(
                                                       'Your Item has been added to cart')));
-                                         
                                         },
                                         child: Container(
                                           padding: const EdgeInsets.all(3),
@@ -117,8 +117,11 @@ class ChairCategory extends ConsumerWidget {
                       return Text(error.toString());
                     },
                     loading: () {
-                      return const Center(
-                          child: CircularProgressIndicator.adaptive());
+                      return Center(
+                          child: LoadingAnimationWidget.staggeredDotsWave(
+                              color: Colors.blue, size: 20)
+                          //CircularProgressIndicator.adaptive(),
+                          );
                     },
                   );
                 }),

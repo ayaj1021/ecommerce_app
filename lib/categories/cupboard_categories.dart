@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 class CupboardCategory extends ConsumerWidget {
   CupboardCategory({super.key});
 
-  List<ItemPreview> itemsList = getCupboardItemDetails();
+ final List<ItemPreview> itemsList = getCupboardItemDetails();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

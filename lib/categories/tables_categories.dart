@@ -8,7 +8,7 @@ import 'package:nb_utils/nb_utils.dart';
 class TableCategory extends ConsumerWidget {
   TableCategory({super.key});
 
-  List<ItemPreview> itemsList = getTableItemDetails();
+ final List<ItemPreview> itemsList = getTableItemDetails();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

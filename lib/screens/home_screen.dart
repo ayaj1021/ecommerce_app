@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/categories/chairs_categories.dart';
 import 'package:furniture_ecommerce_app/categories/cupboard_categories.dart';
 import 'package:furniture_ecommerce_app/categories/tables_categories.dart';
-import 'package:furniture_ecommerce_app/components/best_seller_component.dart';
 import 'package:furniture_ecommerce_app/services/category_service.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';

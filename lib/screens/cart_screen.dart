@@ -13,7 +13,7 @@ class CartItemScreen extends ConsumerWidget {
   CartItemScreen({super.key});
 
   // List<ItemPreview> itemsList = getChairItemDetails();
-  List<ItemPreview> removeList = [];
+final  List<ItemPreview> removeList = [];
 
   final getAddToCart = FutureProvider((ref) => getItemData());
   @override
@@ -49,104 +49,112 @@ class CartItemScreen extends ConsumerWidget {
               ],
             ),
             Expanded(
-              child: SizedBox(
-                child: ListView.builder(
-                    controller: ScrollController(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: cartItems.length,
-                    itemBuilder: (_, index) {
-                      final items = cartItems[index];
-                      return addCart.when(data: (value) {
-                        return Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 5,
-                              vertical: 12,
-                            ),
-                            //  height: 130,
-                            margin: const EdgeInsets.all(5),
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              // mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Checkbox(
-                                    activeColor: AppStyles.primaryColor,
-                                    value: ref
-                                        .read(checkBoxProvider.notifier)
-                                        .state
-                                        .contains(index),
-                                    onChanged: (newBool) {
-                                      print(ref.watch(checkBoxProvider));
-                                      if (ref
+              child: ListView(
+                children: [
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: cartItems.length,
+                      itemBuilder: (_, index) {
+                        final items = cartItems[index];
+                        return addCart.when(data: (value) {
+                          return Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                                vertical: 12,
+                              ),
+                              //  height: 130,
+                              margin: const EdgeInsets.all(5),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Checkbox(
+                                      activeColor: AppStyles.primaryColor,
+                                      value: ref
                                           .read(checkBoxProvider.notifier)
                                           .state
-                                          .contains(index)) {
-                                        ref
-                                            .read(checkBoxProvider.notifier)
-                                            .state
-                                            .remove(index);
-                                      } else {
-                                        ref
-                                            .read(checkBoxProvider.notifier)
-                                            .state
-                                            .add(index);
+                                          .contains(index),
+                                      onChanged: (newBool) {
                                         print(ref.watch(checkBoxProvider));
-                                      }
-                                    }),
-                                Container(
-                                  height: 100,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Image.network(
-                                    value.image,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                15.width,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      value.title,
-                                      style: AppStyles.itemTitle
-                                          .copyWith(fontSize: 2),
+                                        if (ref
+                                            .read(checkBoxProvider.notifier)
+                                            .state
+                                            .contains(index)) {
+                                          ref
+                                              .read(checkBoxProvider.notifier)
+                                              .state
+                                              .remove(index);
+                                        } else {
+                                          ref
+                                              .read(checkBoxProvider.notifier)
+                                              .state
+                                              .add(index);
+                                          print(ref.watch(checkBoxProvider));
+                                        }
+                                      }),
+                                  Container(
+                                    height: 100,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    10.height,
-                                    Text(value.category),
-                                    28.height,
-                                    Text(
-                                      value.price.toString(),
-                                      style: AppStyles.itemTitle,
+                                    child: Image.network(
+                                      value.image,
+                                      fit: BoxFit.cover,
                                     ),
-                                  ],
-                                )
-                              ],
+                                  ),
+                                  15.width,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        value.title,
+                                        style: AppStyles.itemTitle
+                                            .copyWith(fontSize: 2),
+                                      ),
+                                      10.height,
+                                      Text(value.category),
+                                      28.height,
+                                      Text(
+                                        value.price.toString(),
+                                        style: AppStyles.itemTitle,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }, error: (error, stackTrace) {
-                        return Text(error.toString());
-                      }, loading: () {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      });
-                    }),
+                          );
+                        }, error: (error, stackTrace) {
+                          return Text(error.toString());
+                        }, loading: () {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        });
+                      }),
+                  20.height,
+                  Text(
+                    'Recently View',
+                    style: AppStyles.headLine2,
+                  ),
+                  20.height,
+                  const Button(
+                    buttonText: 'Proceed to Checkout',
+                  )
+                ],
               ),
             ),
-            20.height,
-            Text(
-              'Recently View',
-              style: AppStyles.headLine2,
-            ),
+
             // Expanded(
             //   child: SizedBox(
             //     child: ListView.builder(
@@ -173,10 +181,6 @@ class CartItemScreen extends ConsumerWidget {
             //         }),
             //   ),
             // ),
-            20.height,
-            const Button(
-              buttonText: 'Proceed to Checkout',
-            )
           ],
         ),
       ),
