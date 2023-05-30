@@ -107,7 +107,7 @@ final  List<ItemPreview> removeList = [];
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Image.network(
-                                      value.image,
+                                      value[index].image,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -117,15 +117,15 @@ final  List<ItemPreview> removeList = [];
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        value.title,
+                                        value[index].title,
                                         style: AppStyles.itemTitle
                                             .copyWith(fontSize: 2),
                                       ),
                                       10.height,
-                                      Text(value.category),
+                                      Text(value[index].category),
                                       28.height,
                                       Text(
-                                        value.price.toString(),
+                                        value[index].price.toString(),
                                         style: AppStyles.itemTitle,
                                       ),
                                     ],

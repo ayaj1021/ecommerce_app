@@ -52,7 +52,7 @@ class ChairCategory extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(8),
                                   color: Colors.grey.shade300),
                               child: Image.network(
-                                value.image,
+                                value[index].image,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -63,26 +63,26 @@ class ChairCategory extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    value.title,
+                                    value[index].title,
                                     style: AppStyles.itemTitle,
                                   ),
                                   10.height,
-                                  Text(value.category),
+                                  Text(value[index].category),
                                   15.height,
                                   Row(
                                     children: [
                                       Text(
-                                        value.category.toString(),
+                                        value[index].category.toString(),
                                         style: AppStyles.itemTitle,
                                       ),
                                       const Spacer(),
                                       GestureDetector(
                                         onTap: () {
                                           var cart = ItemPreview(
-                                            image: value.image,
-                                            title: value.title,
-                                            category: value.category,
-                                            price: value.price,
+                                            image: value[index].image,
+                                            title: value[index].title,
+                                            category: value[index].category,
+                                            price: value[index].price,
                                             //qty: 1
                                           );
                                           ref.read(cartProvider).add(cart);
