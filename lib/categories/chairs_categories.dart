@@ -12,17 +12,18 @@ class ChairCategory extends ConsumerWidget {
 
   // List<ItemPreview> itemsList = getChairItemDetails();
 
-  final fetchProductsProvider = FutureProvider((ref) {
-    return getItemData();
+  final fetchProductsProvider = FutureProvider((ref) async {
+    final furnitureRepository = ref.read(getProductsProvider);
+    final furniture = await furnitureRepository.getItemData();
+    return furniture;
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final productsData = ref.watch(fetchProductsProvider);
     return Scaffold(
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
+      body: ref.watch(fetchProductsProvider).when(data: (itemsPreview) {
+        return SingleChildScrollView(
+            child: Column(children: [
           //first scrolling items
           SizedBox(
             height: 380,
@@ -32,102 +33,100 @@ class ChairCategory extends ConsumerWidget {
                 shrinkWrap: true,
                 // itemCount: productsData.length,
                 itemBuilder: (_, index) {
-                  return productsData.when(
-                    data: (value) {
-                      return Container(
-                        width: 200,
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white,
+                  final value = itemsPreview[index];
+                  return Container(
+                    width: 200,
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 150,
+                          width: 180,
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.grey.shade300),
+                          child: Image.network(
+                            value.image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 150,
-                              width: 180,
-                              margin: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Colors.grey.shade300),
-                              child: Image.network(
-                                value[index].image,
-                                fit: BoxFit.cover,
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                value.title,
+                                style: AppStyles.itemTitle,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              10.height,
+                              Text(value.category),
+                              15.height,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    value[index].title,
-                                    style: AppStyles.itemTitle,
+                                  FittedBox(
+                                    child: Text(
+                                      value.category.toString(),
+                                      style: AppStyles.itemTitle,
+                                    ),
                                   ),
-                                  10.height,
-                                  Text(value[index].category),
-                                  15.height,
-                                  Row(
-                                    children: [
-                                      Text(
-                                        value[index].category.toString(),
-                                        style: AppStyles.itemTitle,
+                                  GestureDetector(
+                                    onTap: () {
+                                      var cart = ItemPreview(
+                                        image: value.image,
+                                        title: value.title,
+                                        category: value.category,
+                                        price: value.price,
+                                        //qty: 1
+                                      );
+                                      ref.read(cartProvider).add(cart);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              duration:
+                                                  Duration(milliseconds: 900),
+                                              content: Text(
+                                                  'Your Item has been added to cart')));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppStyles.primaryColor),
+                                      child: const Icon(
+                                        Icons.add,
+                                        color: Colors.white,
                                       ),
-                                      const Spacer(),
-                                      GestureDetector(
-                                        onTap: () {
-                                          var cart = ItemPreview(
-                                            image: value[index].image,
-                                            title: value[index].title,
-                                            category: value[index].category,
-                                            price: value[index].price,
-                                            //qty: 1
-                                          );
-                                          ref.read(cartProvider).add(cart);
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  duration: Duration(
-                                                      milliseconds: 900),
-                                                  content: Text(
-                                                      'Your Item has been added to cart')));
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(3),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppStyles.primaryColor),
-                                          child: const Icon(
-                                            Icons.add,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                  )
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      );
-                    },
-                    error: (error, trace) {
-                      return Text(error.toString());
-                    },
-                    loading: () {
-                      return Center(
-                          child: LoadingAnimationWidget.staggeredDotsWave(
-                              color: Colors.blue, size: 20)
-                          //CircularProgressIndicator.adaptive(),
-                          );
-                    },
+                      ],
+                    ),
                   );
                 }),
-          )
-        ],
-      )),
+          ),
+        ]));
+      }, error: (error, trace) {
+        return Text(error.toString());
+      }, loading: () {
+        return Center(
+          child: LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.blue, size: 20),
+        );
+      }),
     );
   }
 }

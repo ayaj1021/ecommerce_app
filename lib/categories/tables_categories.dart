@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:furniture_ecommerce_app/model_constants/models_constant.dart';
 import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';

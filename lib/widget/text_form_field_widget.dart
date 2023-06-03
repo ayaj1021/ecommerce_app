@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_ecommerce_app/constants/constants.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
    TextFormFieldWidget(
