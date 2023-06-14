@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:furniture_ecommerce_app/categories/chairs_categories.dart';
 import 'package:furniture_ecommerce_app/categories/cupboard_categories.dart';
 import 'package:furniture_ecommerce_app/categories/tables_categories.dart';
+import 'package:furniture_ecommerce_app/constants/constants.dart';
 import 'package:furniture_ecommerce_app/services/category_service.dart';
 import 'package:furniture_ecommerce_app/styles/app_styles.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -37,7 +38,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   ];
   @override
   Widget build(BuildContext context) {
-    final category = ref.watch(fetchCategoryProvider);
     return Scaffold(
       backgroundColor: AppStyles.scaffoldBgColor,
       body: SingleChildScrollView(
@@ -68,7 +68,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             //Search bar
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                height: 50,
+                height: screenHeight(context) * 0.06,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -76,8 +76,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                     border: Border.all(
                       color: Colors.grey.shade300,
                     )),
-                child: Row(
-                  children: const [Icon(Icons.search)],
+                child: const TextField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Search product',
+                      prefixIcon: Icon(Icons.search)),
                 )),
             30.height,
             Text(
@@ -97,7 +100,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
                   tabs: const [
                     Tab(
                       child: TabBarContainer(
-                        tabName: 'Chairs',
+                        tabName: 'Clothes',
                       ),
                     ),
                     Tab(

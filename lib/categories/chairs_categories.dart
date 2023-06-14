@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:furniture_ecommerce_app/constants/constants.dart';
 import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 import 'package:furniture_ecommerce_app/providers/cart_provider.dart';
 import 'package:furniture_ecommerce_app/services/product_service.dart';
@@ -21,21 +22,23 @@ class ChairCategory extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ref.watch(fetchProductsProvider).when(data: (itemsPreview) {
         return SingleChildScrollView(
             child: Column(children: [
           //first scrolling items
           SizedBox(
-            height: 380,
-            width: 600,
+            height: screenHeight(context) * 0.42,
+            //  width: screenWidth(context) * 0.8,
             child: ListView.builder(
+                itemCount: itemsPreview.length,
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 // itemCount: productsData.length,
-                itemBuilder: (_, index) {
-                  final value = itemsPreview[index];
+                itemBuilder: (_, __) {
+                  final value = itemsPreview[__];
                   return Container(
-                    width: 200,
+                    width: screenWidth(context) * 0.6,
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
@@ -45,8 +48,8 @@ class ChairCategory extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 150,
-                          width: 180,
+                          height: screenHeight(context) * 0.22,
+                          width: screenWidth(context) * 0.50,
                           margin: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
@@ -78,6 +81,7 @@ class ChairCategory extends ConsumerWidget {
                                     child: Text(
                                       value.category.toString(),
                                       style: AppStyles.itemTitle,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                   GestureDetector(

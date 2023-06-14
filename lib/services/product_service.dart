@@ -15,11 +15,8 @@ class FurnitureRepository{
 
   return items;
 
-  
 }
 }
-
-
 
 final getProductsProvider = Provider<FurnitureRepository>((ref) {
   return FurnitureRepository();

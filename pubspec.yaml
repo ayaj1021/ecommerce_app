@@ -45,6 +45,7 @@ dependencies:
   dio: ^5.1.2
   cached_network_image: ^3.2.3
   loading_animation_widget: ^1.2.0+4
+  gap_widget: ^0.0.1
 
 dev_dependencies:
   flutter_test:

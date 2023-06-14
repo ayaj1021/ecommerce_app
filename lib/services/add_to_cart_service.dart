@@ -1,10 +1,22 @@
-import 'package:dio/dio.dart';
-import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
+// import 'package:dio/dio.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:furniture_ecommerce_app/models/item_preview_model.dart';
 
-Future<ItemPreview> addToCart() async {
-  String endpoint = 'https://fakestoreapi.com/products';
+// class AddToCartRespository {
+//   Future<List<ItemPreview>> addToCart() async {
+//     String endpoint = 'https://fakestoreapi.com/products';
 
-  var dio = Dio();
-  final response = await dio.get(endpoint);
-  return ItemPreview.fromJson(response.data[3]);
-}
+//     var dio = Dio();
+//     final response = await dio.get(endpoint);
+//     final result = List<Map<String, dynamic>>.from(response.data);
+
+//     List<ItemPreview> addItems =
+//         result.map((e) => ItemPreview.fromMap(e)).toList();
+
+//     return addItems;
+//   }
+// }
+
+// final addCartProvider = Provider<AddToCartRespository>((ref) {
+//   return AddToCartRespository();
+// });
